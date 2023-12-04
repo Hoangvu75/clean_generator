@@ -5,6 +5,4 @@ class Routes {
   }
 
   static const HOME = '/home';
-  static const SETTINGS = '/settings';
-  static const ALARM_CLOCK = '/alarm_clock';
 }

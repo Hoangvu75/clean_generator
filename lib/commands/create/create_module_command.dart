@@ -15,7 +15,7 @@ class CreateModuleCommand extends Command<void> {
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 1) {
-      print('Usage: create module: <module_name>');
+      print('Usage: create_module: <module_name>');
       return;
     }
 
@@ -32,7 +32,7 @@ class CreateModuleCommand extends Command<void> {
     await _defineModuleRoute(moduleName);
     await _addControllerBindingToExportControllerBindingFile(moduleName);
     await _addScreenToExportScreenFile(moduleName);
-    print('Module $moduleName created');
+    print('Module ${ReCase(moduleName).pascalCase} created');
   }
 
   Future<void> _createWidget(String moduleName) async {
@@ -139,7 +139,7 @@ import '../../../../presentation/${moduleName.toLowerCase()}/controllers/${modul
 class ${className}ControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<${className}Controller>(
+    Get.lazyPut(
       () => ${className}Controller(),
     );
   }

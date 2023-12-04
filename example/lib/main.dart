@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'infrastructure/infrastructure_config.dart';
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  InfrastructureConfig.init();
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
     themeMode: ThemeMode.system,

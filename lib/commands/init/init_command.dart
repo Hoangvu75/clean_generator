@@ -20,7 +20,7 @@ class InitCommand extends Command<void> {
       if (choiceInInt == 2) return;
       deleteEverythingInFolder('lib');
     }
-    await addNecessaryDependencies();
+    // await addNecessaryDependencies();
     await generateProjectStructure();
   }
 
@@ -53,6 +53,8 @@ class InitCommand extends Command<void> {
       'lib/infrastructure/extensions',
       'lib/infrastructure/navigation/bindings/controllers',
       'lib/infrastructure/navigation/bindings/domains',
+      'lib/infrastructure/services',
+      'lib/infrastructure/theme',
       'lib/infrastructure/utils',
     ];
 
@@ -60,29 +62,34 @@ class InitCommand extends Command<void> {
       await Directory(folder).create(recursive: true);
     }
 
-    await createMainDartFile();
-    await createRoutes();
-    await createNavigation();
+    await _createMainDartFile();
+    await _createRoutesFile();
+    await _createNavigationFile();
+    await _createServicesFile();
+    await _createInfrastructureConfigFile();
 
-    await createSampleModule();
-    await addSampleRouteToNavigation();
-    await addSampleRouteToRoutesClass();
-    await addSampleControllerBindingToExportControllerBindingFile();
-    await addSampleScreenToExportScreenFile();
+    await _createSampleModule();
+    await _addSampleRouteToNavigation();
+    await _addSampleRouteToRoutesClass();
+    await _addSampleControllerBindingToExportControllerBindingFile();
+    await _addSampleScreenToExportScreenFile();
 
     print('Project structure generated successfully.');
   }
 
-  Future<void> createMainDartFile() async {
+  Future<void> _createMainDartFile() async {
     String fileContent = '''
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'infrastructure/infrastructure_config.dart';
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  
+  InfrastructureConfig.init();
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
     themeMode: ThemeMode.system,
@@ -107,7 +114,7 @@ void main() async {
     await Process.run('dart', ['format', filePath]);
   }
 
-  Future<void> createRoutes() async {
+  Future<void> _createRoutesFile() async {
     String dirPath = 'lib/infrastructure/navigation';
     Directory directory = Directory(dirPath);
     await directory.create(recursive: true);
@@ -128,7 +135,7 @@ class Routes {
     await Process.run('dart', ['format', filePath]);
   }
 
-  Future<void> createNavigation() async {
+  Future<void> _createNavigationFile() async {
     String dirPath = 'lib/infrastructure/navigation';
     Directory directory = Directory(dirPath);
     await directory.create(recursive: true);
@@ -153,7 +160,44 @@ class Nav {
     await Process.run('dart', ['format', filePath]);
   }
 
-  Future<void> createSampleModule() async {
+  Future<void> _createServicesFile() async {
+    String dirPath = 'lib/infrastructure/services';
+    Directory directory = Directory(dirPath);
+    await directory.create(recursive: true);
+    String filePath = '$dirPath/services.dart';
+    File file = File(filePath);
+    file.writeAsString("");
+    await Process.run('dart', ['format', filePath]);
+  }
+
+  Future<void> _createInfrastructureConfigFile() async {
+    String dirPath = 'lib/infrastructure';
+    Directory directory = Directory(dirPath);
+    await directory.create(recursive: true);
+
+    String fileContent = '''
+import 'package:get/get.dart';
+
+import 'services/services.dart';
+
+class InfrastructureConfig {
+  static void init() {
+    serviceConfig();
+  }
+
+  static void serviceConfig() {
+
+  }
+}
+''';
+
+    String filePath = '$dirPath/infrastructure_config.dart';
+    File file = File(filePath);
+    await file.writeAsString(fileContent);
+    await Process.run('dart', ['format', filePath]);
+  }
+
+  Future<void> _createSampleModule() async {
     var moduleName = 'home';
 
     // create module widget
@@ -245,7 +289,7 @@ import '../../../../presentation/${moduleName.toLowerCase()}/controllers/${modul
 class ${moduleName.capitalize()}ControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<${moduleName.capitalize()}Controller>(
+    Get.lazyPut(
       () => ${moduleName.capitalize()}Controller(),
     );
   }
@@ -258,7 +302,7 @@ class ${moduleName.capitalize()}ControllerBinding extends Bindings {
     await Process.run('dart', ['format', controllerBindingFilePath]);
   }
 
-  Future<void> addSampleRouteToNavigation() async {
+  Future<void> _addSampleRouteToNavigation() async {
     var moduleName = 'home';
 
     String filePath = 'lib/infrastructure/navigation/navigation.dart';
@@ -287,7 +331,7 @@ class ${moduleName.capitalize()}ControllerBinding extends Bindings {
     }
   }
 
-  Future<void> addSampleRouteToRoutesClass() async {
+  Future<void> _addSampleRouteToRoutesClass() async {
     var moduleName = 'home';
     String filePath = 'lib/infrastructure/navigation/routes.dart';
     File file = File(filePath);
@@ -302,7 +346,7 @@ class ${moduleName.capitalize()}ControllerBinding extends Bindings {
     }
   }
 
-  Future<void> addSampleControllerBindingToExportControllerBindingFile() async {
+  Future<void> _addSampleControllerBindingToExportControllerBindingFile() async {
     var moduleName = 'home';
 
     String dirPath = 'lib/infrastructure/navigation/bindings/controllers';
@@ -318,7 +362,7 @@ class ${moduleName.capitalize()}ControllerBinding extends Bindings {
     await Process.run('dart', ['format', filePath]);
   }
 
-  Future<void> addSampleScreenToExportScreenFile() async {
+  Future<void> _addSampleScreenToExportScreenFile() async {
     var moduleName = 'home';
 
     String dirPath = 'lib/presentation';

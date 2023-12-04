@@ -15,7 +15,7 @@ class CreateWidgetCommand extends Command<void> {
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 3 || argResults!.rest[1].toLowerCase() != 'on') {
-      print('Usage: create widget: <widget_name> on <module_name>');
+      print('Usage: create_widget: <widget_name> on <module_name>');
       return;
     }
 
@@ -26,6 +26,7 @@ class CreateWidgetCommand extends Command<void> {
     final widgetName = widgetPart;
     final moduleName = modulePart;
     await _execute(widgetName, moduleName);
+    print('Widget ${ReCase(moduleName).pascalCase}Widget created');
   }
 
   Future<void> _execute(String widgetName, String moduleName) async {
@@ -67,7 +68,5 @@ class ${className}Widget extends GetWidget {
     final file = File(filePath);
     await file.writeAsString(fileContent);
     await Process.run('dart', ['format', filePath]);
-
-    print('Widget created at $filePath');
   }
 }
