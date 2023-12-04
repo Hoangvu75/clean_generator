@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:args/command_runner.dart';
-import 'package:clean_generator/getx/commands/create/create_widget_command.dart';
-import 'package:clean_generator/getx/commands/init/init_command.dart';
+import 'package:clean_generator/commands/create/create_module_command.dart';
+
+import 'commands/create/create_widget_command.dart';
+import 'commands/init/init_command.dart';
 
 Future<void> onCommandReceive(List<String> arguments) async {
   var pubspecFile = File('pubspec.yaml');
@@ -13,6 +15,7 @@ Future<void> onCommandReceive(List<String> arguments) async {
 
   final runner = CommandRunner<void>('clean_generator', 'A simple Flutter CLI tool')
     ..addCommand(InitCommand())
+    ..addCommand(CreateModuleCommand())
     ..addCommand(CreateWidgetCommand());
 
   runner.run(arguments).catchError((error) {

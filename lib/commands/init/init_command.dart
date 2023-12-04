@@ -68,7 +68,7 @@ class InitCommand extends Command<void> {
     await addSampleRouteToNavigation();
     await addSampleRouteToRoutesClass();
     await addSampleControllerBindingToExportControllerBindingFile();
-    await addScreenToExportScreenFile();
+    await addSampleScreenToExportScreenFile();
 
     print('Project structure generated successfully.');
   }
@@ -281,8 +281,7 @@ class ${moduleName.capitalize()}ControllerBinding extends Bindings {
 
     if (insertIndex != -1) {
       insertIndex = fileContent.indexOf('];', insertIndex);
-      String updatedContent =
-          '${fileContent.substring(0, insertIndex)}$newRoute\n${fileContent.substring(insertIndex)}';
+      String updatedContent = '${fileContent.substring(0, insertIndex)}$newRoute\n${fileContent.substring(insertIndex)}';
       await file.writeAsString(updatedContent);
       await Process.run('dart', ['format', filePath]);
     }
@@ -319,7 +318,7 @@ class ${moduleName.capitalize()}ControllerBinding extends Bindings {
     await Process.run('dart', ['format', filePath]);
   }
 
-  Future<void> addScreenToExportScreenFile() async {
+  Future<void> addSampleScreenToExportScreenFile() async {
     var moduleName = 'home';
 
     String dirPath = 'lib/presentation';

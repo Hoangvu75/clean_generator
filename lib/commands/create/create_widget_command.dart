@@ -4,7 +4,7 @@ import 'package:recase/recase.dart';
 
 class CreateWidgetCommand extends Command<void> {
   @override
-  final name = 'create';
+  final name = 'create_widget:';
   @override
   final description = 'Creates a new widget in the specified module.';
 
@@ -14,9 +14,8 @@ class CreateWidgetCommand extends Command<void> {
 
   @override
   Future<void> run() async {
-    // We expect exactly three parts for the command: "widget:<name>", "on", "<module>"
     if (argResults!.rest.length != 3 || argResults!.rest[1].toLowerCase() != 'on') {
-      print('Usage: create widget:<widget_name> on <module_name>');
+      print('Usage: create widget: <widget_name> on <module_name>');
       return;
     }
 
@@ -24,14 +23,7 @@ class CreateWidgetCommand extends Command<void> {
     final onPart = argResults!.rest[1];
     final modulePart = argResults!.rest[2];
 
-    // Extract the widget name from the widget part
-    if (!widgetPart.startsWith('widget:')) {
-      print('The first part of the command must be in the format "widget:<widget_name>".');
-      return;
-    }
-    final widgetName = widgetPart.substring('widget:'.length);
-
-    // Proceed with the execution
+    final widgetName = widgetPart;
     final moduleName = modulePart;
     await _execute(widgetName, moduleName);
   }

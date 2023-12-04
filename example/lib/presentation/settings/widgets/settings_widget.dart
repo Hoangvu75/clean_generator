@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeButtonWidget extends GetWidget {
-  const HomeButtonWidget({Key? key}) : super(key: key);
+import '../controllers/settings_controller.dart';
+
+class SettingsWidget extends GetWidget<SettingsController> {
+  const SettingsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeButtonWidget'),
+        title: const Text('SettingsWidget'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'HomeButtonWidget is working',
+          'SettingsWidget is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

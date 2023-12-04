@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HelloWidget extends GetWidget {
-  const HelloWidget({Key? key}) : super(key: key);
+import '../controllers/alarm_clock_controller.dart';
+
+class AlarmClockWidget extends GetWidget<AlarmClockController> {
+  const AlarmClockWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HelloWidget'),
+        title: const Text('AlarmClockWidget'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'HelloWidget is working',
+          'AlarmClockWidget is working',
           style: TextStyle(fontSize: 20),
         ),
       ),
