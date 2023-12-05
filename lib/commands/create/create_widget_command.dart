@@ -25,8 +25,21 @@ class CreateWidgetCommand extends Command<void> {
 
     final widgetName = widgetPart;
     final moduleName = modulePart;
+    await _checkIsCreated(widgetName, moduleName);
     await _execute(widgetName, moduleName);
     print('Widget ${ReCase(moduleName).pascalCase}Widget created');
+  }
+
+  Future<void> _checkIsCreated(String widgetName, String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName/widgets';
+    final fileName = ReCase(widgetName).snakeCase;
+    final filePath = '$dirPath/${fileName}_widget.dart';
+    final file = File(filePath);
+    if (await file.exists()) {
+      throw Exception(
+        'Widget ${ReCase(widgetName).pascalCase}Widget already exists',
+      );
+    }
   }
 
   Future<void> _execute(String widgetName, String moduleName) async {

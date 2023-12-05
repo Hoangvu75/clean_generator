@@ -17,12 +17,21 @@ class GenerateModelCommand extends Command<void> {
     }
 
     final modelName = argResults!.rest[0];
+    await _checkIfModelExists(modelName);
     print('Enter your sample model json: ');
 
     final modelJson = _readMultilineInput();
     await _generateModel(modelName, modelJson);
 
     print('Model ${ReCase(modelName).pascalCase} created');
+  }
+
+  Future<void> _checkIfModelExists(String modelName) async {
+    final filePath = 'lib/domain/entities/models/${ReCase(modelName).snakeCase}.dart';
+    final file = File(filePath);
+    if (await file.exists()) {
+      throw Exception('Model ${ReCase(modelName).pascalCase} already exists');
+    }
   }
 
   String _readMultilineInput() {

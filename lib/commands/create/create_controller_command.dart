@@ -26,9 +26,22 @@ class CreateControllerCommand extends Command<void> {
 
     final controllerName = controllerPart;
     final moduleName = modulePart;
+    await _checkIsCreated(controllerName, moduleName);
     await _execute(controllerName, moduleName);
     await _addControllerToModuleBinding(controllerName, moduleName);
     print('Controller ${ReCase(controllerName).pascalCase}Controller created');
+  }
+
+  Future<void> _checkIsCreated(String controllerName, String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName/controllers';
+    final fileName = ReCase(controllerName).snakeCase;
+    final filePath = '$dirPath/${fileName}_controller.dart';
+    final file = File(filePath);
+    if (await file.exists()) {
+      throw Exception(
+        'Controller ${ReCase(controllerName).pascalCase}Controller already exists',
+      );
+    }
   }
 
   Future<void> _execute(String controllerName, String moduleName) async {

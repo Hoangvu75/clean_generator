@@ -21,7 +21,17 @@ class CreateModuleCommand extends Command<void> {
 
     final modulePart = argResults!.rest[0];
     final moduleName = modulePart;
+    await _checkIsCreated(moduleName);
     await _execute(moduleName);
+  }
+
+  Future<void> _checkIsCreated(String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName';
+    if (await Directory(dirPath).exists()) {
+      throw Exception(
+        'Module ${ReCase(moduleName).pascalCase} already exists',
+      );
+    }
   }
 
   Future<void> _execute(String moduleName) async {
