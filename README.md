@@ -62,7 +62,7 @@ dart run clean_generator create_service: alarm
 ```
 
 ## Bind service to a controller of a module
-`dart run clean_generator bind_service: <your_service_name> on <your_controller_name> on <your_module_name>`
+`dart run clean_generator bind_service: <your_service_name> on <your_controller_name> of <your_module_name>`
 
 example:
 ``` shell
