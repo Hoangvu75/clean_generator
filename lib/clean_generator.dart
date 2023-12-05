@@ -1,11 +1,15 @@
 import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:clean_generator/commands/bind/bind_service_command.dart';
+import 'package:clean_generator/commands/create/create_api_command.dart';
 import 'package:clean_generator/commands/create/create_controller_command.dart';
 import 'package:clean_generator/commands/create/create_module_command.dart';
 import 'package:clean_generator/commands/create/create_repository_command.dart';
 import 'package:clean_generator/commands/create/create_service_command.dart';
+import 'package:clean_generator/commands/generate/generate_api_request_command.dart';
+import 'package:clean_generator/commands/generate/generate_api_response_command.dart';
 import 'package:clean_generator/commands/generate/generate_model_command.dart';
+import 'package:clean_generator/commands/init/init_api_client_interface_command.dart';
 
 import 'commands/create/create_widget_command.dart';
 import 'commands/init/init_command.dart';
@@ -26,7 +30,11 @@ Future<void> onCommandReceive(List<String> arguments) async {
     ..addCommand(CreateServiceCommand())
     ..addCommand(CreateRepositoryCommand())
     ..addCommand(GenerateModelCommand())
-    ..addCommand(BindServiceCommand());
+    ..addCommand(GenerateApiResponseCommand())
+    ..addCommand(BindServiceCommand())
+    ..addCommand(InitApiClientInterfaceCommand())
+    ..addCommand(CreateApiCommand())
+    ..addCommand(GenerateApiRequestCommand());
 
   runner.run(arguments).catchError((error) {
     if (error is! UsageException) throw error;

@@ -3,34 +3,34 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:recase/recase.dart';
 
-class GenerateModelCommand extends Command<void> {
+class GenerateApiResponseCommand extends Command<void> {
   @override
-  final name = 'generate_model:';
+  final name = 'generate_api_response:';
   @override
-  final description = 'Creates a new model.';
+  final description = 'Creates a api response.';
 
   @override
   Future<void> run() async {
     if (argResults!.rest.isEmpty) {
-      print('Usage: generate_model: <model_name>');
+      print('Usage: generate_model: <api_response_name>');
       return;
     }
 
     final modelName = argResults!.rest[0];
     await _checkIfModelExists(modelName);
 
-    print('Enter your sample model json: ');
+    print('Enter your sample api response model json: ');
     final modelJson = _readMultilineInput();
     await _generateModel(modelName, modelJson);
 
-    print('Model ${ReCase(modelName).pascalCase} created');
+    print('Api response ${ReCase(modelName).pascalCase} created');
   }
 
   Future<void> _checkIfModelExists(String modelName) async {
-    final filePath = 'lib/domain/entities/models/${ReCase(modelName).snakeCase}.dart';
+    final filePath = 'lib/domain/entities/api_responses/${ReCase(modelName).snakeCase}.dart';
     final file = File(filePath);
     if (await file.exists()) {
-      throw Exception('Model ${ReCase(modelName).pascalCase} already exists');
+      throw Exception('Api response ${ReCase(modelName).pascalCase} already exists');
     }
   }
 
@@ -48,7 +48,7 @@ class GenerateModelCommand extends Command<void> {
     final jsonMap = jsonDecode(json) as Map<String, dynamic>;
     final modelContent = _generateModelContent(modelName, jsonMap);
 
-    final dirPath = 'lib/domain/entities/models';
+    final dirPath = 'lib/domain/entities/api_responses';
     final directory = Directory(dirPath);
     if (!await directory.exists()) {
       await directory.create(recursive: true);
@@ -75,7 +75,7 @@ class GenerateModelCommand extends Command<void> {
         final nestedClassName = ReCase(key).pascalCase;
         buffer.writeln('  $nestedClassName? ${ReCase(key).camelCase};');
       } else {
-        buffer.writeln('  ${_dartType(value)}? ${ReCase(key).camelCase};');
+        buffer.writeln('  ${_dartType(value)}${_dartType(value) == "dynamic" ? '' : '?'} ${ReCase(key).camelCase};');
       }
     });
 
