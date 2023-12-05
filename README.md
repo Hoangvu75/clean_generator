@@ -78,8 +78,8 @@ dart run clean_generator create_model: sample_object
 ```
 
 Then press enter to execute the command, then copy and paste the json string of model to the terminal
-```
-{
+``` json
+{ 
   "greeting": "Welcome to quicktype!",
   "instructions": [
     "Type or paste JSON here",
@@ -158,7 +158,7 @@ dart run clean_generator create_model: base_response
 ```
 
 Then press enter to execute the command, then copy and paste the json string of model to the terminal
-```
+``` json
 {
   "code": 200,
   "message": "success",
