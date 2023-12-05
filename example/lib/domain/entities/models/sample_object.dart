@@ -27,8 +27,8 @@ class SampleObject {
 }
 
 class Complicated {
-  int? first;
-  int? second;
+  First? first;
+  Second? second;
 
   Complicated({
     this.first,
@@ -37,15 +37,63 @@ class Complicated {
 
   factory Complicated.fromJson(Map<String, dynamic> json) {
     return Complicated(
-      first: json['first'],
-      second: json['second'],
+      first: First.fromJson(json['first']),
+      second: Second.fromJson(json['second']),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'first': first,
-      'second': second,
+      'first': first?.toJson(),
+      'second': second?.toJson(),
+    };
+  }
+}
+
+class First {
+  String? title;
+  String? description;
+
+  First({
+    this.title,
+    this.description,
+  });
+
+  factory First.fromJson(Map<String, dynamic> json) {
+    return First(
+      title: json['title'],
+      description: json['description'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
+    };
+  }
+}
+
+class Second {
+  String? title;
+  String? description;
+
+  Second({
+    this.title,
+    this.description,
+  });
+
+  factory Second.fromJson(Map<String, dynamic> json) {
+    return Second(
+      title: json['title'],
+      description: json['description'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
     };
   }
 }

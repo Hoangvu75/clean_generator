@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  HomeController();
+class SwitcherController extends GetxController {
+  SwitcherController();
 
   final count = 0.obs;
 

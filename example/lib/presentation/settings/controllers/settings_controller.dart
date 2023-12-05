@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
+import '../../../infrastructure/services/services.dart';
 
-class ButtonController extends GetxController {
-  ButtonController();
+class SettingsController extends GetxController {
+  final AlarmMethodChannelService alarmMethodChannelService;
+  SettingsController({
+    required this.alarmMethodChannelService,
+  });
 
   final count = 0.obs;
 

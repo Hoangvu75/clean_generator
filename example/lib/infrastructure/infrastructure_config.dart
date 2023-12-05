@@ -9,6 +9,6 @@ class InfrastructureConfig {
 
   static void serviceConfig() {
     Get.put(NetworkService());
-    Get.put(Network2Service());
+    Get.put(AlarmMethodChannelService());
   }
 }

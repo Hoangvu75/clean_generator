@@ -20,14 +20,22 @@ class CreateWidgetCommand extends Command<void> {
     }
 
     final widgetPart = argResults!.rest[0];
-    final onPart = argResults!.rest[1];
     final modulePart = argResults!.rest[2];
 
     final widgetName = widgetPart;
     final moduleName = modulePart;
+    await _checkIfModuleExists(moduleName);
     await _checkIsCreated(widgetName, moduleName);
     await _execute(widgetName, moduleName);
     print('Widget ${ReCase(moduleName).pascalCase}Widget created');
+  }
+
+  Future<void> _checkIfModuleExists(String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName';
+    final directory = Directory(dirPath);
+    if (!await directory.exists()) {
+      throw Exception('Module $moduleName does not exist');
+    }
   }
 
   Future<void> _checkIsCreated(String widgetName, String moduleName) async {

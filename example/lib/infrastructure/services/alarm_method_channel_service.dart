@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class Network2Service extends GetxService {
+class AlarmMethodChannelService extends GetxService {
   @override
   void onInit() {
     // TODO: implement onInit

@@ -9,10 +9,6 @@ class CreateControllerCommand extends Command<void> {
   @override
   final description = 'Creates a new controller in the specified module.';
 
-  CreateControllerCommand() {
-    // The command will handle the parsing manually, so no need to addOption here.
-  }
-
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 3 || argResults!.rest[1].toLowerCase() != 'on') {
@@ -21,15 +17,23 @@ class CreateControllerCommand extends Command<void> {
     }
 
     final controllerPart = argResults!.rest[0];
-    final onPart = argResults!.rest[1];
     final modulePart = argResults!.rest[2];
 
     final controllerName = controllerPart;
     final moduleName = modulePart;
+    await _checkIfModuleExists(moduleName);
     await _checkIsCreated(controllerName, moduleName);
     await _execute(controllerName, moduleName);
     await _addControllerToModuleBinding(controllerName, moduleName);
     print('Controller ${ReCase(controllerName).pascalCase}Controller created');
+  }
+
+  Future<void> _checkIfModuleExists(String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName';
+    final directory = Directory(dirPath);
+    if (!await directory.exists()) {
+      throw Exception('Module $moduleName does not exist');
+    }
   }
 
   Future<void> _checkIsCreated(String controllerName, String moduleName) async {
