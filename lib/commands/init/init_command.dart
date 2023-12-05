@@ -43,6 +43,9 @@ class InitCommand extends Command<void> {
     print('Generating project folder...');
 
     List<String> folders = [
+      'lib/core/extensions',
+      'lib/core/theme',
+      'lib/core/utils',
       'lib/data/repository_impl',
       'lib/data/source/api',
       'lib/data/source/local',
@@ -50,12 +53,9 @@ class InitCommand extends Command<void> {
       'lib/domain/entities/models',
       'lib/domain/entities/api_responses',
       'lib/domain/repositories',
-      'lib/infrastructure/extensions',
       'lib/infrastructure/navigation/bindings/controllers',
       'lib/infrastructure/navigation/bindings/domains',
       'lib/infrastructure/services',
-      'lib/infrastructure/theme',
-      'lib/infrastructure/utils',
     ];
 
     for (String folder in folders) {
@@ -66,7 +66,9 @@ class InitCommand extends Command<void> {
     await _createRoutesFile();
     await _createNavigationFile();
     await _createServicesFile();
+    await _createRepositoriesFile();
     await _createInfrastructureConfigFile();
+    await _createDomainConfigFile();
 
     await _createSampleModule();
     await _addSampleRouteToNavigation();
@@ -85,11 +87,13 @@ import 'package:get/get.dart';
 import 'infrastructure/infrastructure_config.dart';
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
+import 'domain/domain_config.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   
   InfrastructureConfig.init();
+  DomainConfig.init();
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
     themeMode: ThemeMode.system,
@@ -170,6 +174,16 @@ class Nav {
     await Process.run('dart', ['format', filePath]);
   }
 
+  Future<void> _createRepositoriesFile() async {
+    String dirPath = 'lib/domain/repositories';
+    Directory directory = Directory(dirPath);
+    await directory.create(recursive: true);
+    String filePath = '$dirPath/repositories.dart';
+    File file = File(filePath);
+    file.writeAsString("");
+    await Process.run('dart', ['format', filePath]);
+  }
+
   Future<void> _createInfrastructureConfigFile() async {
     String dirPath = 'lib/infrastructure';
     Directory directory = Directory(dirPath);
@@ -192,6 +206,33 @@ class InfrastructureConfig {
 ''';
 
     String filePath = '$dirPath/infrastructure_config.dart';
+    File file = File(filePath);
+    await file.writeAsString(fileContent);
+    await Process.run('dart', ['format', filePath]);
+  }
+
+  Future<void> _createDomainConfigFile() async {
+    String dirPath = 'lib/domain';
+    Directory directory = Directory(dirPath);
+    await directory.create(recursive: true);
+
+    String fileContent = '''
+import 'package:get/get.dart';
+
+import 'repositories/repositories.dart';
+
+class DomainConfig {
+  static void init() {
+    repositoryConfig();
+  }
+
+  static void repositoryConfig() {
+
+  }
+}
+''';
+
+    String filePath = '$dirPath/domain_config.dart';
     File file = File(filePath);
     await file.writeAsString(fileContent);
     await Process.run('dart', ['format', filePath]);

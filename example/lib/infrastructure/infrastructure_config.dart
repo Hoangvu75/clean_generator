@@ -7,8 +7,5 @@ class InfrastructureConfig {
     serviceConfig();
   }
 
-  static void serviceConfig() {
-    Get.put(NetworkService());
-    Get.put(AlarmMethodChannelService());
-  }
+  static void serviceConfig() {}
 }

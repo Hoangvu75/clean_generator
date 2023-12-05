@@ -8,10 +8,6 @@ class CreateWidgetCommand extends Command<void> {
   @override
   final description = 'Creates a new widget in the specified module.';
 
-  CreateWidgetCommand() {
-    // The command will handle the parsing manually, so no need to addOption here.
-  }
-
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 3 || argResults!.rest[1].toLowerCase() != 'on') {

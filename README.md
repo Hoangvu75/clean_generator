@@ -45,12 +45,28 @@ example:
 dart run clean_generator create_controller: home_button on home
 ```
 
+## Create repository
+`dart run clean_generator create_repository: <your_repository_name>`
+
+example:
+``` shell
+dart run clean_generator create_repository: auth
+```
+
 ## Create service
 `dart run clean_generator create_service: <your_service_name>`
 
 example:
 ``` shell
 dart run clean_generator create_service: alarm
+```
+
+## Bind service to a controller of a module
+`dart run clean_generator bind_service: <your_service_name> on <your_controller_name> on <your_module_name>`
+
+example:
+``` shell
+dart run clean_generator bind_service: network on home of home
 ```
 
 ## Generate model
@@ -131,12 +147,4 @@ class Complicated {
     };
   }
 }
-```
-
-## Bind service to a controller of a module
-`dart run clean_generator bind_service: <your_service_name> on <your_controller_name> on <your_module_name>`
-
-example:
-``` shell
-dart run clean_generator bind_service: network on home of home
 ```

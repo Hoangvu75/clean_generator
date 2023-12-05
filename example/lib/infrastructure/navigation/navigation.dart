@@ -11,10 +11,5 @@ class Nav {
       page: () => const HomeWidget(),
       binding: HomeControllerBinding(),
     ),
-    GetPage(
-      name: Routes.SETTINGS,
-      page: () => const SettingsWidget(),
-      binding: SettingsControllerBinding(),
-    ),
   ];
 }

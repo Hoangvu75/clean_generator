@@ -9,10 +9,6 @@ class BindServiceCommand extends Command<void> {
   @override
   final description = 'Bind a service to a controller';
 
-  BindServiceCommand() {
-    // The command will handle the parsing manually, so no need to addOption here.
-  }
-
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 5 ||

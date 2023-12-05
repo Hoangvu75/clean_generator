@@ -8,10 +8,6 @@ class CreateModuleCommand extends Command<void> {
   @override
   final description = 'Creates a new module (includes widget, controller, binding).';
 
-  CreateModuleCommand() {
-    // The command will handle the parsing manually, so no need to addOption here.
-  }
-
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 1) {

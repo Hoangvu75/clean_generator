@@ -8,10 +8,6 @@ class CreateServiceCommand extends Command<void> {
   @override
   final description = 'Creates a new service.';
 
-  CreateServiceCommand() {
-    // The command will handle the parsing manually, so no need to addOption here.
-  }
-
   @override
   Future<void> run() async {
     if (argResults!.rest.length != 1) {
@@ -110,8 +106,7 @@ class ${className}Service extends GetxService {
 
     if (insertIndex != -1) {
       insertIndex = fileContent.indexOf('}', insertIndex);
-      String updatedContent =
-          '${fileContent.substring(0, insertIndex)}$newService\n${fileContent.substring(insertIndex)}';
+      String updatedContent = '${fileContent.substring(0, insertIndex)}$newService\n${fileContent.substring(insertIndex)}';
       await file.writeAsString(updatedContent);
       await Process.run('dart', ['format', filePath]);
     }

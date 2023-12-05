@@ -5,5 +5,4 @@ class Routes {
   }
 
   static const HOME = '/home';
-  static const SETTINGS = '/settings';
 }

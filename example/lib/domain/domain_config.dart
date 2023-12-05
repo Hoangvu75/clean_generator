@@ -1,0 +1,13 @@
+import 'package:get/get.dart';
+
+import 'repositories/repositories.dart';
+
+class DomainConfig {
+  static void init() {
+    repositoryConfig();
+  }
+
+  static void repositoryConfig() {
+    Get.lazyPut(() => AuthRepository());
+  }
+}
