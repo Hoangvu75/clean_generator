@@ -3,6 +3,7 @@ import 'package:args/command_runner.dart';
 import 'package:clean_generator/commands/create/create_controller_command.dart';
 import 'package:clean_generator/commands/create/create_module_command.dart';
 import 'package:clean_generator/commands/create/create_service_command.dart';
+import 'package:clean_generator/commands/generate/generate_model_command.dart';
 
 import 'commands/create/create_widget_command.dart';
 import 'commands/init/init_command.dart';
@@ -20,7 +21,8 @@ Future<void> onCommandReceive(List<String> arguments) async {
     ..addCommand(CreateModuleCommand())
     ..addCommand(CreateWidgetCommand())
     ..addCommand(CreateControllerCommand())
-    ..addCommand(CreateServiceCommand());
+    ..addCommand(CreateServiceCommand())
+    ..addCommand(GenerateModelCommand());
 
   runner.run(arguments).catchError((error) {
     if (error is! UsageException) throw error;

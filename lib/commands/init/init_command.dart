@@ -48,7 +48,7 @@ class InitCommand extends Command<void> {
       'lib/data/source/local',
       'lib/data/source/socket',
       'lib/domain/entities/models',
-      'lib/domain/entities/responses',
+      'lib/domain/entities/api_responses',
       'lib/domain/repositories',
       'lib/infrastructure/extensions',
       'lib/infrastructure/navigation/bindings/controllers',
