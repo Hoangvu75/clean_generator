@@ -20,7 +20,7 @@ class InitCommand extends Command<void> {
       if (choiceInInt == 2) return;
       deleteEverythingInFolder('lib');
     }
-    // await addNecessaryDependencies();
+    await addNecessaryDependencies();
     await generateProjectStructure();
   }
 
