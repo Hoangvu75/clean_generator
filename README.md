@@ -4,6 +4,18 @@ This is a Flutter CLI (Dart) created by Hoang Vu for Moonfactory company staff o
 
 Project would be based on GetX and Clean architecture.
 
+### Install
+
+Add clean_generator to your dev-dependencies in pubspec.yaml
+
+``` yaml
+dev_dependencies:
+  clean_generator:
+    git:
+      url: https://github.com/Hoangvu75/clean_generator.git
+      ref: master
+```
+
 ## Initialize project
 ``` shell
 dart run clean_generator init
