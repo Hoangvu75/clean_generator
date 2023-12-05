@@ -26,7 +26,7 @@ dart run clean_generator init
 
 example: 
 ``` shell
-dart run clean_generator create_widget: settings
+dart run clean_generator create_module: settings
 ```
 
 ## Create widget on specific module
@@ -38,7 +38,7 @@ dart run clean_generator create_widget: home_button on home
 ```
 
 ## Create controller on specific module
-`dart run clean_generator create_widget: <your_controller_name> on <your_module_name>`
+`dart run clean_generator create_controller: <your_controller_name> on <your_module_name>`
 
 example:
 ``` shell
