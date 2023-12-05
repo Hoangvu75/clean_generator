@@ -8,6 +8,7 @@ class InfrastructureConfig {
   }
 
   static void serviceConfig() {
-    Get.lazyPut(() => AuthService());
+    Get.put(NetworkService());
+    Get.put(Network2Service());
   }
 }

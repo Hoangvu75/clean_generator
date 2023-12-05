@@ -22,10 +22,23 @@ class CreateServiceCommand extends Command<void> {
     final servicePart = argResults!.rest[0];
 
     final serviceName = servicePart;
+    await _checkIsCreated(serviceName);
     await _execute(serviceName);
     await _addAccountServiceToExportServiceFile(serviceName);
     await _addServiceToInfrastructureConfigFile(serviceName);
     print('Service ${ReCase(serviceName).pascalCase}Service created');
+  }
+
+  Future<void> _checkIsCreated(String serviceName) async {
+    final dirPath = 'lib/infrastructure/services';
+    final fileName = ReCase(serviceName).snakeCase;
+    final filePath = '$dirPath/${fileName}_service.dart';
+    final file = File(filePath);
+    if (await file.exists()) {
+      throw Exception(
+        'Service ${ReCase(serviceName).pascalCase}Service already exists',
+      );
+    }
   }
 
   Future<void> _execute(String serviceName) async {
@@ -89,7 +102,7 @@ class ${className}Service extends GetxService {
     String fileContent = await file.readAsString();
 
     String newService = '''
-    Get.lazyPut(() => ${ReCase(serviceName).pascalCase}Service());
+    Get.put(${ReCase(serviceName).pascalCase}Service());
     ''';
 
     String searchPattern = 'static void serviceConfig() {';
@@ -97,7 +110,8 @@ class ${className}Service extends GetxService {
 
     if (insertIndex != -1) {
       insertIndex = fileContent.indexOf('}', insertIndex);
-      String updatedContent = '${fileContent.substring(0, insertIndex)}$newService\n${fileContent.substring(insertIndex)}';
+      String updatedContent =
+          '${fileContent.substring(0, insertIndex)}$newService\n${fileContent.substring(insertIndex)}';
       await file.writeAsString(updatedContent);
       await Process.run('dart', ['format', filePath]);
     }

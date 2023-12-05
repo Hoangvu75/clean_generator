@@ -247,7 +247,10 @@ class ${moduleName.capitalize()}Widget extends GetWidget<${moduleName.capitalize
 import 'package:get/get.dart';
 
 class ${moduleName.capitalize()}Controller extends GetxController {
+  ${moduleName.capitalize()}Controller();
+  
   final count = 0.obs;
+  
   @override
   void onInit() {
     //TODO: Implement SettingsController

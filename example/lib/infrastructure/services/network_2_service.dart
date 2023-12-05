@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class AuthService extends GetxService {
+class Network2Service extends GetxService {
   @override
   void onInit() {
     // TODO: implement onInit

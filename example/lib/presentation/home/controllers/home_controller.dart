@@ -1,7 +1,16 @@
 import 'package:get/get.dart';
+import '../../../infrastructure/services/services.dart';
 
 class HomeController extends GetxController {
+  final NetworkService networkService;
+  final Network2Service network2Service;
+  HomeController({
+    required this.networkService,
+    required this.network2Service,
+  });
+
   final count = 0.obs;
+
   @override
   void onInit() {
     //TODO: Implement SettingsController

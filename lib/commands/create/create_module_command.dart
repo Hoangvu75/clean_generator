@@ -92,7 +92,10 @@ class ${className}Widget extends GetWidget<${className}Controller> {
 import 'package:get/get.dart';
 
 class ${className}Controller extends GetxController {
+  ${className}Controller();
+  
   final count = 0.obs;
+  
   @override
   void onInit() {
     //TODO: Implement SettingsController
