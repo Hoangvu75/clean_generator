@@ -30,11 +30,49 @@ class BindServiceCommand extends Command<void> {
     final serviceName = servicePart;
     final controllerName = controllerPart;
     final moduleName = modulePart;
+    await _checkIfModuleExists(moduleName);
+    await _checkIfControllerExists(controllerName, moduleName);
+    await _checkIfIsBinded(serviceName, controllerName, moduleName);
     await _execute(serviceName, controllerName, moduleName);
     await _configControllerBinding(serviceName, controllerName, moduleName);
 
     print('Service ${ReCase(serviceName).pascalCase}Service binded '
         'to ${ReCase(controllerName).pascalCase}Controller');
+  }
+
+  Future<void> _checkIfModuleExists(String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName';
+    final directory = Directory(dirPath);
+    if (!await directory.exists()) {
+      throw Exception('Module $moduleName does not exist');
+    }
+  }
+
+  Future<void> _checkIfControllerExists(String controllerName, String moduleName) async {
+    final dirPath = 'lib/presentation/$moduleName/controllers';
+    final fileName = ReCase(controllerName).snakeCase;
+    final filePath = '$dirPath/${fileName}_controller.dart';
+    final file = File(filePath);
+    if (!await file.exists()) {
+      throw Exception(
+        'Controller ${ReCase(controllerName).pascalCase}Controller does not exist',
+      );
+    }
+  }
+
+  Future<void> _checkIfIsBinded(
+    String serviceName,
+    String controllerName,
+    String moduleName,
+  ) async {
+    final filePath = 'lib/presentation/${ReCase(moduleName).snakeCase}/controllers/${ReCase(controllerName).snakeCase}_controller.dart';
+    final file = File(filePath);
+    String fileContent = await file.readAsString();
+    if (fileContent.contains('required this.${ReCase(serviceName).camelCase}Service')) {
+      throw Exception(
+        'Service ${ReCase(serviceName).pascalCase}Service is already binded to ${ReCase(controllerName).pascalCase}Controller',
+      );
+    }
   }
 
   Future<void> _execute(
