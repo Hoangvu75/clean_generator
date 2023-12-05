@@ -6,47 +6,47 @@ Project would be based on GetX and Clean architecture.
 
 ## Initialize project
 ``` shell
-dart run clean_generator.dart init
+dart run clean_generator init
 ```
 
 ## Create a module (include widget, controller, binding)
-`dart run clean_generator.dart create_module: <your_module_name>`
+`dart run clean_generator create_module: <your_module_name>`
 
 example: 
 ``` shell
-dart run clean_generator.dart create_widget: settings
+dart run clean_generator create_widget: settings
 ```
 
 ## Create widget on specific module
-`dart run clean_generator.dart create_widget: <your_widget_name> on <your_module_name>`
+`dart run clean_generator create_widget: <your_widget_name> on <your_module_name>`
 
 example: 
 ``` shell
-dart run clean_generator.dart create_widget: home_button on home
+dart run clean_generator create_widget: home_button on home
 ```
 
 ## Create controller on specific module
-`dart run clean_generator.dart create_widget: <your_controller_name> on <your_module_name>`
+`dart run clean_generator create_widget: <your_controller_name> on <your_module_name>`
 
 example:
 ``` shell
-dart run clean_generator.dart create_controller: home_button on home
+dart run clean_generator create_controller: home_button on home
 ```
 
 ## Create service
-`dart run clean_generator.dart create_service: <your_service_name>`
+`dart run clean_generator create_service: <your_service_name>`
 
 example:
 ``` shell
-dart run clean_generator.dart create_service: alarm
+dart run clean_generator create_service: alarm
 ```
 
 ## Generate model
-`dart run clean_generator.dart generate_model: <your_model_name>`
+`dart run clean_generator generate_model: <your_model_name>`
 
 example: 
 ``` shell
-dart run clean_generator.dart create_model: sample_object
+dart run clean_generator create_model: sample_object
 ```
 
 Then press enter to execute the command, then copy and paste the json string of model to the terminal
