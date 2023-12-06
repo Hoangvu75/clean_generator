@@ -7,4 +7,6 @@ abstract class AuthRepository {
     required AuthApiClient authApiClient,
     required FriendApiClient friendApiClient,
   }) = AuthRepositoryImpl;
+
+  Future<void> login(String email, String password);
 }

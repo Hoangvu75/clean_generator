@@ -14,7 +14,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    //TODO: Implement SettingsController
+    authRepository.login('email', 'password');
     super.onInit();
   }
 
