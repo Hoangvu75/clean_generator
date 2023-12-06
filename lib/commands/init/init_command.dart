@@ -44,12 +44,11 @@ class InitCommand extends Command<void> {
 
     List<String> folders = [
       'lib/core/extensions',
-      'lib/core/theme',
+      'lib/core/ui',
       'lib/core/utils',
       'lib/data/repository_impl',
       'lib/data/source/api',
       'lib/data/source/local',
-      'lib/data/source/socket',
       'lib/domain/entities/models',
       'lib/domain/entities/api_responses',
       'lib/domain/repositories',
