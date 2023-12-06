@@ -5,7 +5,7 @@ import 'package:recase/recase.dart';
 
 class BindRepositoryToControllerCommand extends Command<void> {
   @override
-  final name = 'bind_repository_to_controller:';
+  final name = 'bind_repo_to_controller:';
   @override
   final description = 'Bind a repository to a controller';
 
@@ -14,7 +14,7 @@ class BindRepositoryToControllerCommand extends Command<void> {
     if (argResults!.rest.length != 5 ||
         argResults!.rest[1].toLowerCase() != 'on' ||
         argResults!.rest[3].toLowerCase() != 'of') {
-      print('Usage: bind_repository_to_controller: <repository_name> on'
+      print('Usage: bind_repo_to_controller: <repository_name> on'
           ' <controller_name> of <module_name>');
       return;
     }

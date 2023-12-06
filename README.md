@@ -61,14 +61,6 @@ example:
 dart run clean_generator create_service: alarm
 ```
 
-## Bind service to a controller of a module
-`dart run clean_generator bind_service_to_controller: <your_service_name> on <your_controller_name> of <your_module_name>`
-
-example:
-``` shell
-dart run clean_generator bind_service_to_controller: network on home of home
-```
-
 ## Generate model
 `dart run clean_generator generate_model: <your_model_name>`
 
@@ -336,4 +328,20 @@ abstract class AuthApi {
 example:
 ``` shell
 dart run clean_generator bind_api_client_to_repo: auth on auth
+```
+
+## Bind repository to a controller of a module
+`dart run clean_generator bind_repo_to_controller: <your_repository_name> on <your_controller_name> of <your_module_name>`
+
+example:
+``` shell
+dart run clean_generator bind_repo_to_controller: auth on home of home
+```
+
+## Bind service to a controller of a module
+`dart run clean_generator bind_service_to_controller: <your_service_name> on <your_controller_name> of <your_module_name>`
+
+example:
+``` shell
+dart run clean_generator bind_service_to_controller: network on home of home
 ```
