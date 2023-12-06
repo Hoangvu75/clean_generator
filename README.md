@@ -20,6 +20,58 @@ dev_dependencies:
 ``` shell
 dart run clean_generator init
 ```
+Folder structure
+```
+.
+└── lib/                                            
+    ├── core/                                      
+    │   ├── extension/                               
+    │   ├── ui/                                      
+    │   └── utils/                                   
+    ├── data/                                      
+    │   ├── repository_impl/                         
+    │   ├── source/                                  
+    │   │   ├── api/                                   
+    │   │   ├── local/                                 
+    │   │   └── sources.dart                           
+    │   └── data_config.dart                         
+    ├── domain/                                    
+    │   ├── entities/                                
+    │   │   ├── api_response/                          
+    │   │   └── models/                                
+    │   ├── repositories/                            
+    │   │   └── repositories.dart                      
+    │   └── domain_config.dart                       
+    ├── infrastructure/                            
+    │   ├── navigation/                              
+    │   │   ├── bindings/
+    │   │   │   └── controllers/
+    │   │   │       └── controllers_bindings.dart
+    │   │   ├── navigation.dart
+    │   │   └── routes.dart
+    │   ├── services/
+    │   └── infrastructure_config.dart
+    ├── presentation/
+    │   ├── home/
+    │   │   ├── controllers/
+    │   │   │   └── home_controller.dart
+    │   │   └── widgets/
+    │   │       └── home_widget.dart
+    │   └── screens.dart
+    └── main.dart
+```
+
+* core layer: includes application utilities, constant variables, text-style, color...
+* data layer:
+  * repository_impl: implementation of repositories
+  * source: application data (API and cache)
+* domain layer:
+  * entities: includes model classes
+  * repositories: interface of repositories
+* infrastructure: 
+  * controller bindings, navigation and routes: application infrastructure based on GetX pattern
+  * service: application services handle other tasks (socket, network, method channel,...)
+* presentation: presents application UI, state 
 
 ## Create a module (include widget, controller, binding)
 `dart run clean_generator create_module: <your_module_name>`
