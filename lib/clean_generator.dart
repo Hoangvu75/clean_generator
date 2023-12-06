@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:args/command_runner.dart';
-import 'package:clean_generator/commands/bind/bind_service_command.dart';
+import 'package:clean_generator/commands/bind/bind_api_client_to_repository_command.dart';
+import 'package:clean_generator/commands/bind/bind_service_to_controller_command.dart';
 import 'package:clean_generator/commands/create/create_api_command.dart';
 import 'package:clean_generator/commands/create/create_controller_command.dart';
 import 'package:clean_generator/commands/create/create_module_command.dart';
@@ -22,19 +23,21 @@ Future<void> onCommandReceive(List<String> arguments) async {
     return;
   }
 
-  final runner = CommandRunner<void>('clean_generator', 'A simple Flutter CLI tool')
-    ..addCommand(InitCommand())
-    ..addCommand(CreateModuleCommand())
-    ..addCommand(CreateWidgetCommand())
-    ..addCommand(CreateControllerCommand())
-    ..addCommand(CreateServiceCommand())
-    ..addCommand(CreateRepositoryCommand())
-    ..addCommand(GenerateModelCommand())
-    ..addCommand(GenerateApiResponseCommand())
-    ..addCommand(BindServiceCommand())
-    ..addCommand(InitApiClientInterfaceCommand())
-    ..addCommand(CreateApiCommand())
-    ..addCommand(GenerateApiRequestCommand());
+  final runner =
+      CommandRunner<void>('clean_generator', 'A simple Flutter CLI tool')
+        ..addCommand(InitCommand())
+        ..addCommand(CreateModuleCommand())
+        ..addCommand(CreateWidgetCommand())
+        ..addCommand(CreateControllerCommand())
+        ..addCommand(CreateServiceCommand())
+        ..addCommand(CreateRepositoryCommand())
+        ..addCommand(GenerateModelCommand())
+        ..addCommand(GenerateApiResponseCommand())
+        ..addCommand(BindServiceToControllerCommand())
+        ..addCommand(InitApiClientInterfaceCommand())
+        ..addCommand(CreateApiCommand())
+        ..addCommand(GenerateApiRequestCommand())
+        ..addCommand(BindApiClientToRepositoryCommand());
 
   runner.run(arguments).catchError((error) {
     if (error is! UsageException) throw error;

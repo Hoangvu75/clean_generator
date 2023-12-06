@@ -329,3 +329,11 @@ abstract class AuthApi {
   );
 }
 ```
+
+## Bind API client to a repository
+`dart run clean_generator bind_api_client: <your_api_name> on <your_repository_name>`
+
+example:
+``` shell
+dart run clean_generator bind_api_client: auth on auth
+```

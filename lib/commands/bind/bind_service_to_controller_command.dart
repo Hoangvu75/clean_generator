@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:recase/recase.dart';
 
-class BindServiceCommand extends Command<void> {
+class BindServiceToControllerCommand extends Command<void> {
   @override
   final name = 'bind_service:';
   @override

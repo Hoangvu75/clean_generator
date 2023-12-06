@@ -105,7 +105,7 @@ class ${className}RepositoryImpl implements ${className}Repository {
     String fileContent = await file.readAsString();
 
     String newRepository = '''
-    Get.lazyPut(() => ${ReCase(repositoryName).pascalCase}Repository());
+    Get.lazyPut(() => ${ReCase(repositoryName).pascalCase}Repository(),);
     ''';
 
     String searchPattern = 'static void repositoryConfig() {';
