@@ -27,6 +27,8 @@ class CreateApiCommand extends Command<void> {
     await _createApiFile(apiName);
     await _createApiClientFile(apiName, apiClientInterfaceName);
     await _runBuildRunner();
+    await _addApiToSourceExport(apiName);
+    await _addApiClientToDataConfig(apiName);
 
     print('API ${ReCase(apiName).pascalCase} created successfully');
   }
@@ -66,7 +68,7 @@ part '${fileName}_api.g.dart';
 
 @RestApi()
 abstract class ${className}Api {
-  factory ${className}Api(Dio dio) = _AuthApi;
+  factory ${className}Api(Dio dio) = _${className}Api;
 }
     ''';
 
@@ -116,5 +118,33 @@ class ${className}ApiClient extends ${ReCase(apiClientInterfaceName).pascalCase}
     );
     print(buildRunner.stdout);
     print(buildRunner.stderr);
+  }
+
+  Future<void> _addApiClientToDataConfig(String apiName) async {
+    final filePath = 'lib/data/data_config.dart';
+    final file = File(filePath);
+    var fileContent = await file.readAsString();
+
+    final className = ReCase(apiName).pascalCase;
+
+    String newApiStatement = 'Get.lazyPut(() => ${className}ApiClient());';
+    String insertStartPattern = 'apiDataSourceConfig() {';
+    int insertIndex = fileContent.indexOf(insertStartPattern);
+    insertIndex = fileContent.indexOf('}', insertIndex);
+
+    String updatedContent = '${fileContent.substring(0, insertIndex)}$newApiStatement\n${fileContent.substring(insertIndex)}';
+    await file.writeAsString(updatedContent);
+    await Process.run('dart', ['format', filePath]);
+  }
+
+  Future<void> _addApiToSourceExport(String apiName) async {
+    final filePath = 'lib/data/source/sources.dart';
+    final file = File(filePath);
+
+    final fileName = ReCase(apiName).snakeCase;
+
+    String updatedContent = "export 'api/$fileName/${fileName}_api_client.dart';";
+    await file.writeAsString(updatedContent, mode: FileMode.append);
+    await Process.run('dart', ['format', filePath]);
   }
 }

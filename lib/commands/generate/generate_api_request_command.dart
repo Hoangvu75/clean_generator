@@ -59,11 +59,12 @@ class GenerateApiRequestCommand extends Command<void> {
       throw Exception('Invalid endpoint');
     }
 
-    String? pathParameter;
-    if (endpoint.contains('{') && endpoint.contains('}')) {
-      final pathParameterStartIndex = endpoint.indexOf('{');
-      final pathParameterEndIndex = endpoint.indexOf('}');
-      pathParameter = endpoint.substring(pathParameterStartIndex + 1, pathParameterEndIndex);
+    List<String> pathParameters = [];
+    RegExp pathParamRegex = RegExp(r'\{([^}]+)\}');
+    Iterable<RegExpMatch> matches = pathParamRegex.allMatches(endpoint);
+    for (var match in matches) {
+      String pathParameter = match.group(1)!; // Group 1 is the content inside the curly braces
+      pathParameters.add(pathParameter);
     }
 
     print('Does your API request has a body? (y/n)');
@@ -100,12 +101,15 @@ class GenerateApiRequestCommand extends Command<void> {
       newApiRequest = beforeParam + queryParam + afterParam;
     }
 
-    if (pathParameter != null) {
+    if (pathParameters.isNotEmpty) {
       final paramEndIndex = newApiRequest.lastIndexOf(')');
-      final pathParam = '@Path("$pathParameter") String $pathParameter,';
+      String pathParams = '';
+      for (var pathParameter in pathParameters) {
+        pathParams += '@Path("$pathParameter") String $pathParameter,';
+      }
       String beforeParam = newApiRequest.substring(0, paramEndIndex);
       String afterParam = newApiRequest.substring(paramEndIndex);
-      newApiRequest = beforeParam + pathParam + afterParam;
+      newApiRequest = beforeParam + pathParams + afterParam;
     }
 
     final endIndex = fileContent.lastIndexOf('}');

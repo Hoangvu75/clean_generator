@@ -67,8 +67,10 @@ class InitCommand extends Command<void> {
     await _createNavigationFile();
     await _createServicesFile();
     await _createRepositoriesFile();
+    await _createSourcesFile();
     await _createInfrastructureConfigFile();
     await _createDomainConfigFile();
+    await _createDataConfigFile();
 
     await _createSampleModule();
     await _addSampleRouteToNavigation();
@@ -92,8 +94,9 @@ import 'domain/domain_config.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   
-  InfrastructureConfig.init();
+  DataConfig.init();
   DomainConfig.init();
+  InfrastructureConfig.init();
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
     themeMode: ThemeMode.system,
@@ -184,6 +187,16 @@ class Nav {
     await Process.run('dart', ['format', filePath]);
   }
 
+  Future<void> _createSourcesFile() async {
+    String dirPath = 'lib/data/source';
+    Directory directory = Directory(dirPath);
+    await directory.create(recursive: true);
+    String filePath = '$dirPath/sources.dart';
+    File file = File(filePath);
+    file.writeAsString("");
+    await Process.run('dart', ['format', filePath]);
+  }
+
   Future<void> _createInfrastructureConfigFile() async {
     String dirPath = 'lib/infrastructure';
     Directory directory = Directory(dirPath);
@@ -237,6 +250,40 @@ class DomainConfig {
     await file.writeAsString(fileContent);
     await Process.run('dart', ['format', filePath]);
   }
+
+  Future<void> _createDataConfigFile() async {
+    String dirPath = 'lib/data';
+    Directory directory = Directory(dirPath);
+    await directory.create(recursive: true);
+
+    String fileContent = '''
+import 'package:get/get.dart';
+
+import 'source/sources.dart';
+
+class DataConfig {
+  static Future<void> init() async {
+    apiDataSourceConfig();
+    localDataSourceConfig();
+    socketDataSourceConfig();
+  }
+
+  static void apiDataSourceConfig() {
+  }
+
+  static void localDataSourceConfig() {
+  }
+
+  static void socketDataSourceConfig() {
+  }
+}
+''';
+
+    String filePath = '$dirPath/data_config.dart';
+    File file = File(filePath);
+    await file.writeAsString(fileContent);
+    await Process.run('dart', ['format', filePath]);
+}
 
   Future<void> _createSampleModule() async {
     var moduleName = 'home';

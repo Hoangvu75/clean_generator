@@ -180,12 +180,10 @@ class ${className}ControllerBinding extends Bindings {
     String searchPattern = 'static List<GetPage> routes = [';
     int insertIndex = fileContent.indexOf(searchPattern);
 
-    if (insertIndex != -1) {
-      insertIndex = fileContent.indexOf('];', insertIndex);
-      String updatedContent = '${fileContent.substring(0, insertIndex)}$newRoute\n${fileContent.substring(insertIndex)}';
-      await file.writeAsString(updatedContent);
-      await Process.run('dart', ['format', navigationPath]);
-    }
+    insertIndex = fileContent.indexOf('];', insertIndex);
+    String updatedContent = '${fileContent.substring(0, insertIndex)}$newRoute\n${fileContent.substring(insertIndex)}';
+    await file.writeAsString(updatedContent);
+    await Process.run('dart', ['format', navigationPath]);
   }
 
   Future<void> _defineModuleRoute(String moduleName) async {
@@ -195,11 +193,9 @@ class ${className}ControllerBinding extends Bindings {
     String routeConstName = ReCase(moduleName).snakeCase.toUpperCase();
     String newRoute = '  static const $routeConstName = \'/${moduleName.toLowerCase()}\';\n';
     int insertIndex = fileContent.lastIndexOf('}');
-    if (insertIndex != -1) {
-      String updatedContent = fileContent.substring(0, insertIndex) + newRoute + fileContent.substring(insertIndex);
-      await file.writeAsString(updatedContent);
-      await Process.run('dart', ['format', filePath]);
-    }
+    String updatedContent = fileContent.substring(0, insertIndex) + newRoute + fileContent.substring(insertIndex);
+    await file.writeAsString(updatedContent);
+    await Process.run('dart', ['format', filePath]);
   }
 
   Future<void> _addControllerBindingToExportControllerBindingFile(String moduleName) async {

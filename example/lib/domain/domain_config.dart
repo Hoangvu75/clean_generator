@@ -7,7 +7,5 @@ class DomainConfig {
     repositoryConfig();
   }
 
-  static void repositoryConfig() {
-    Get.lazyPut(() => AuthRepository());
-  }
+  static void repositoryConfig() {}
 }

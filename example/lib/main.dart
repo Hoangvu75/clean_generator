@@ -1,3 +1,4 @@
+import 'package:example/data/data_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +10,9 @@ import 'domain/domain_config.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  InfrastructureConfig.init();
+  DataConfig.init();
   DomainConfig.init();
+  InfrastructureConfig.init();
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
     themeMode: ThemeMode.system,
