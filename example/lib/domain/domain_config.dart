@@ -14,5 +14,11 @@ class DomainConfig {
         friendApiClient: Get.find(),
       ),
     );
+    Get.lazyPut(
+      () => FriendRepository(
+        friendApiClient: Get.find(),
+        authApiClient: Get.find(),
+      ),
+    );
   }
 }
