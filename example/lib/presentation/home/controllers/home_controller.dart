@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
+import '../../../infrastructure/services/services.dart';
 
 class HomeController extends GetxController {
-  HomeController();
+  final AlarmService alarmService;
+  HomeController({
+    required this.alarmService,
+  });
 
   final count = 0.obs;
 

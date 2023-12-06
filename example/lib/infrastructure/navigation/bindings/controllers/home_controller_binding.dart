@@ -7,7 +7,9 @@ class HomeControllerBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(
-      () => HomeController(),
+      () => HomeController(
+        alarmService: Get.find(),
+      ),
     );
     Get.lazyPut(
       () => HomeButtonController(),
