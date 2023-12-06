@@ -74,7 +74,7 @@ dart run clean_generator bind_service: network on home of home
 
 example: 
 ``` shell
-dart run clean_generator create_model: sample_object
+dart run clean_generator generate_model: sample_object
 ```
 
 Then press enter to execute the command, then copy and paste the json string of model to the terminal
