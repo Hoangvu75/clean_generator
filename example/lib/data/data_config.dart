@@ -10,8 +10,8 @@ class DataConfig {
   }
 
   static void apiDataSourceConfig() {
-    Get.lazyPut(() => AccountApiClient());
     Get.lazyPut(() => AuthApiClient());
+    Get.lazyPut(() => FriendApiClient());
   }
 
   static void localDataSourceConfig() {}

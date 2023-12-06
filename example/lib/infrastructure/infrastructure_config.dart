@@ -7,5 +7,7 @@ class InfrastructureConfig {
     serviceConfig();
   }
 
-  static void serviceConfig() {}
+  static void serviceConfig() {
+    Get.put(AlarmService());
+  }
 }

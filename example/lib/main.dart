@@ -1,7 +1,7 @@
-import 'package:example/data/data_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'data/data_config.dart';
 import 'infrastructure/infrastructure_config.dart';
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';

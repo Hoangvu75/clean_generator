@@ -112,7 +112,7 @@ class BindApiClientToRepositoryCommand extends Command<void> {
     final file = File(filePath);
     String fileContent = await file.readAsString();
 
-    final importStatement = "import '../../data/source/api/auth/auth_api_client.dart';\n";
+    final importStatement = "import '../../data/source/api/${ReCase(apiName).snakeCase}/${ReCase(apiName).snakeCase}_api_client.dart';\n";
     final importIndex = fileContent.lastIndexOf("import ");
     final importEndIndex = fileContent.indexOf(';\n', importIndex) + 1;
     fileContent = fileContent.substring(0, importEndIndex) + importStatement + fileContent.substring(importEndIndex);
