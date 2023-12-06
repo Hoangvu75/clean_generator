@@ -159,7 +159,8 @@ dart run clean_generator generate_api_response: base_response
 ```
 
 Then press enter to execute the command, then copy and paste the json string of model to the terminal
-``` json
+``` shell
+Enter your sample api response model json:
 {
   "code": 200,
   "message": "success",
