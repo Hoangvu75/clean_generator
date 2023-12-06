@@ -169,10 +169,18 @@ class BindApiClientToRepositoryCommand extends Command<void> {
     final file = File(dirPath);
     String fileContent = await file.readAsString();
 
-    final startIndex = fileContent.indexOf('${ReCase(repositoryName).pascalCase}Repository(');
-    final stopIndex = fileContent.indexOf('),', startIndex);
-    final constructServiceStatement = '${ReCase(apiName).camelCase}ApiClient: Get.find(),';
-    fileContent = fileContent.substring(0, stopIndex) + constructServiceStatement + fileContent.substring(stopIndex);
+    if (fileContent.contains('${ReCase(repositoryName).pascalCase}Repository()')) {
+      final startIndex = fileContent.indexOf('${ReCase(repositoryName).pascalCase}Repository(');
+      final stopIndex = fileContent.indexOf('),', startIndex);
+      final constructServiceStatement = '${ReCase(apiName).camelCase}ApiClient: Get.find(),';
+      fileContent = fileContent.substring(0, stopIndex) + constructServiceStatement + fileContent.substring(stopIndex);
+    } else {
+      final startIndex = fileContent.indexOf('${ReCase(repositoryName).pascalCase}Repository(');
+      String pattern = '),\n    );';
+      final stopIndex = fileContent.indexOf(pattern, startIndex);
+      final constructServiceStatement = '${ReCase(apiName).camelCase}ApiClient: Get.find(),';
+      fileContent = fileContent.substring(0, stopIndex) + constructServiceStatement + fileContent.substring(stopIndex);
+    }
 
     await file.writeAsString(fileContent);
     await Process.run('dart', ['format', dirPath]);
