@@ -9,6 +9,7 @@ class HomeControllerBinding extends Bindings {
     Get.lazyPut(
       () => HomeController(
         alarmService: Get.find(),
+        authRepository: Get.find(),
       ),
     );
     Get.lazyPut(

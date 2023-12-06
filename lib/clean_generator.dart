@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:args/command_runner.dart';
 import 'package:clean_generator/commands/bind/bind_api_client_to_repository_command.dart';
+import 'package:clean_generator/commands/bind/bind_repository_to_a_controller_command.dart';
 import 'package:clean_generator/commands/bind/bind_service_to_controller_command.dart';
 import 'package:clean_generator/commands/create/create_api_command.dart';
 import 'package:clean_generator/commands/create/create_controller_command.dart';
@@ -37,7 +38,8 @@ Future<void> onCommandReceive(List<String> arguments) async {
         ..addCommand(InitApiClientInterfaceCommand())
         ..addCommand(CreateApiCommand())
         ..addCommand(GenerateApiRequestCommand())
-        ..addCommand(BindApiClientToRepositoryCommand());
+        ..addCommand(BindApiClientToRepositoryCommand())
+        ..addCommand(BindRepositoryToControllerCommand());
 
   runner.run(arguments).catchError((error) {
     if (error is! UsageException) throw error;
