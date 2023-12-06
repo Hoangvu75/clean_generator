@@ -5,7 +5,7 @@ import 'package:recase/recase.dart';
 
 class BindApiClientToRepositoryCommand extends Command<void> {
   @override
-  final name = 'bind_api_client:';
+  final name = 'bind_api_client_to_repo:';
   @override
   final description = 'Bind an API client to a repository';
 
@@ -13,7 +13,7 @@ class BindApiClientToRepositoryCommand extends Command<void> {
   Future<void> run() async {
     if (argResults!.rest.length != 3 ||
         argResults!.rest[1].toLowerCase() != 'on') {
-      print('Usage: bind_api_client: <api_name> on <repository_name>');
+      print('Usage: bind_api_client_to_repo: <api_name> on <repository_name>');
       return;
     }
 

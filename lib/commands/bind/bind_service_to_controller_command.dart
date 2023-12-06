@@ -5,7 +5,7 @@ import 'package:recase/recase.dart';
 
 class BindServiceToControllerCommand extends Command<void> {
   @override
-  final name = 'bind_service:';
+  final name = 'bind_service_to_controller:';
   @override
   final description = 'Bind a service to a controller';
 
@@ -14,7 +14,7 @@ class BindServiceToControllerCommand extends Command<void> {
     if (argResults!.rest.length != 5 ||
         argResults!.rest[1].toLowerCase() != 'on' ||
         argResults!.rest[3].toLowerCase() != 'of') {
-      print('Usage: bind_service: <service_name> on <controller_name> of '
+      print('Usage: bind_service_to_controller: <service_name> on <controller_name> of '
           '<module_name>');
       return;
     }
