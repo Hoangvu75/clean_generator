@@ -1,3 +1,6 @@
+import 'package:example/core/asset_path/asset_locales_path.dart';
+import 'package:example/core/locales/locale_keys.dart';
+import 'package:example/core/locales/app_locales.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +19,8 @@ void main() async {
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
     themeMode: ThemeMode.system,
+    translationsKeys: AppTranslation.translations,
+    locale: AppLocales.en_US,
     debugShowCheckedModeBanner: false,
     initialRoute: await Routes.initialRoute,
     getPages: Nav.routes,

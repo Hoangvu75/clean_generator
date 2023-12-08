@@ -405,3 +405,10 @@ example:
 ``` shell
 dart run clean_generator generate_locales: assets/locales
 ```
+
+## Generate asset path file
+`dart run clean_generator generate_asset_path: <asset_folder_dir>`
+example:
+``` shell
+dart run clean_generator generate_asset_path: assets/images
+```

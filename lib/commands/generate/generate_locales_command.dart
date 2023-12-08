@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:args/command_runner.dart';
-import 'package:recase/recase.dart';
 
 class GenerateLocalesCommand extends Command<void> {
   @override
@@ -11,6 +10,7 @@ class GenerateLocalesCommand extends Command<void> {
 
   @override
   Future<void> run() async {
+    var startTime = DateTime.now();
     if (argResults!.rest.isEmpty) {
       print('Usage: generate_locales: <locale_folder_dir>');
       return;
@@ -19,6 +19,11 @@ class GenerateLocalesCommand extends Command<void> {
     final localeFolder = argResults!.rest[0];
     await _checkIfLocaleFolderExists(localeFolder);
     await _generateLocale(localeFolder);
+
+    var endTime = DateTime.now();
+    var difference = endTime.difference(startTime);
+    print('Locale files generated successfully.');
+    print('Finished in ${difference.inMilliseconds}ms.');
   }
 
   Future<void> _checkIfLocaleFolderExists(String localeFolderPath) async {
@@ -40,18 +45,32 @@ class GenerateLocalesCommand extends Command<void> {
       localeMap[localeName] = jsonMap;
     }
 
-    final localeContent = await _generateLocaleContent(localeMap);
-    final filePath = 'lib/core/locales/locales.dart';
-    final file = File(filePath);
-    if (!await file.exists()) {
-      await file.create(recursive: true);
+    final localeKeysContent = await _generateLocaleContent(localeMap);
+    final localeKeysPath = 'lib/core/locales/locale_keys.dart';
+    final localKeysFile = File(localeKeysPath);
+    if (!await localKeysFile.exists()) {
+      await localKeysFile.create(recursive: true);
     }
-    await file.writeAsString(localeContent);
-    await Process.run('dart', ['format', filePath]);
+    await localKeysFile.writeAsString(localeKeysContent);
+    await Process.run('dart', ['format', localeKeysPath]);
+
+    final localeClassesContent = _generateClassLocalFile(localeMap);
+    final localeClassesPath = 'lib/core/locales/app_locales.dart';
+    final localeClassesFile = File(localeClassesPath);
+    if (!await localeClassesFile.exists()) {
+      await localeClassesFile.create(recursive: true);
+    }
+    await localeClassesFile.writeAsString(localeClassesContent);
   }
 
   Future<String> _generateLocaleContent(Map<String, dynamic> localeMap) async {
     final StringBuffer buffer = StringBuffer();
+
+    buffer.writeln('// ignore_for_file: constant_identifier_names');
+    buffer.writeln('// ignore_for_file: prefer_const_constructors');
+    buffer.writeln('// ignore_for_file: prefer_const_literals_to_create_immutables');
+    buffer.writeln('// ignore_for_file: unused_import');
+    buffer.writeln('');
 
     buffer.writeln('class AppTranslation {');
     buffer.writeln('  static Map<String, Map<String, String>> translations = {');
@@ -80,9 +99,9 @@ class GenerateLocalesCommand extends Command<void> {
 
   void _generateKeys(Map<String, dynamic> jsonMap, StringBuffer buffer, [String prefix = '']) {
     jsonMap.forEach((key, value) {
-      final String keyName = prefix + key; // keep original key format
+      final String keyName = prefix + key;
       if (value is Map<String, dynamic>) {
-        _generateKeys(value, buffer, keyName + '_');
+        _generateKeys(value, buffer, '${keyName}_');
       } else {
         buffer.writeln('  static const $keyName = \'$keyName\';');
       }
@@ -110,6 +129,25 @@ class GenerateLocalesCommand extends Command<void> {
     }
 
     buffer.write('  }');
+    return buffer.toString();
+  }
+
+  String _generateClassLocalFile(Map<String, dynamic> localeMap) {
+    final StringBuffer buffer = StringBuffer();
+
+    buffer.writeln('// ignore_for_file: constant_identifier_names');
+    buffer.writeln('// ignore_for_file: prefer_const_constructors');
+    buffer.writeln('// ignore_for_file: prefer_const_literals_to_create_immutables');
+    buffer.writeln('// ignore_for_file: unused_import');
+    buffer.writeln('');
+
+    buffer.writeln("import 'package:flutter/material.dart';\n");
+    buffer.writeln('class AppLocales {');
+    localeMap.forEach((localeName, jsonMap) {
+      late var locale = localeName.split('_');
+      buffer.writeln("  static const $localeName = Locale('${locale[0]}', '${locale[1]}');");
+    });
+    buffer.writeln('}');
     return buffer.toString();
   }
 }

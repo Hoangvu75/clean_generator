@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/locales/locale_keys.dart';
 import '../controllers/home_controller.dart';
 
 class HomeWidget extends GetWidget<HomeController> {
@@ -9,7 +10,9 @@ class HomeWidget extends GetWidget<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeWidget'),
+        title: Text(
+          LocaleKeys.alarm_app.tr,
+        ),
         centerTitle: true,
       ),
       body: const Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/locales/locale_keys.dart';
 import '../controllers/settings_controller.dart';
 
 class SettingsWidget extends GetWidget<SettingsController> {
@@ -10,7 +11,9 @@ class SettingsWidget extends GetWidget<SettingsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SettingsWidget'),
+        title: Text(
+          LocaleKeys.day.tr,
+        ),
         centerTitle: true,
       ),
       body: const Center(
