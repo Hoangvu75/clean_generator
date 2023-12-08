@@ -10,6 +10,7 @@ import 'package:clean_generator/commands/create/create_repository_command.dart';
 import 'package:clean_generator/commands/create/create_service_command.dart';
 import 'package:clean_generator/commands/generate/generate_api_request_command.dart';
 import 'package:clean_generator/commands/generate/generate_api_response_command.dart';
+import 'package:clean_generator/commands/generate/generate_locales_command.dart';
 import 'package:clean_generator/commands/generate/generate_model_command.dart';
 import 'package:clean_generator/commands/init/init_api_client_interface_command.dart';
 
@@ -39,7 +40,8 @@ Future<void> onCommandReceive(List<String> arguments) async {
         ..addCommand(CreateApiCommand())
         ..addCommand(GenerateApiRequestCommand())
         ..addCommand(BindApiClientToRepositoryCommand())
-        ..addCommand(BindRepositoryToControllerCommand());
+        ..addCommand(BindRepositoryToControllerCommand())
+        ..addCommand(GenerateLocalesCommand());
 
   runner.run(arguments).catchError((error) {
     if (error is! UsageException) throw error;

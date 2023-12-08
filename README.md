@@ -397,3 +397,11 @@ example:
 ``` shell
 dart run clean_generator bind_service_to_controller: network on home of home
 ```
+
+## Generate locales file
+`dart run clean_generator generate_locales: <locale_folder_dir>`
+
+example:
+``` shell
+dart run clean_generator generate_locales: assets/locales
+```
