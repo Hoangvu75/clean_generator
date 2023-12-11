@@ -43,9 +43,10 @@ class InitCommand extends Command<void> {
     print('Generating project folder...');
 
     List<String> folders = [
+      'lib/core/asset_paths',
       'lib/core/extensions',
-      'lib/core/ui',
       'lib/core/utils',
+      'lib/core/widgets',
       'lib/data/repository_impl',
       'lib/data/source/api',
       'lib/data/source/local',

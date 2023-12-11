@@ -1,4 +1,4 @@
-import 'package:example/core/asset_path/asset_locales_path.dart';
+import 'package:example/core/extensions/string.dart';
 import 'package:example/core/locales/locale_keys.dart';
 import 'package:example/core/locales/app_locales.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,9 @@ void main() async {
   InfrastructureConfig.init();
 
   GetMaterialApp getMaterialApp = GetMaterialApp(
-    themeMode: ThemeMode.system,
+    themeMode: ThemeMode.dark,
+    theme: ThemeData.light(),
+    darkTheme: ThemeData.dark(),
     translationsKeys: AppTranslation.translations,
     locale: AppLocales.en_US,
     debugShowCheckedModeBanner: false,
